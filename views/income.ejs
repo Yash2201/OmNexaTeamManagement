@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Income</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-zinc-900 text-white w-full min-h-screen overflow-x-hidden">
+
+  <%- include('header') %>
+
+  <div class="p-10">
+    <% if (success) { %>
+      <div id="successAlert" class="fixed top-5 right-5 bg-green-600 text-white px-4 py-2 rounded shadow">
+        <%= success %>
+      </div>
+      <script>
+        setTimeout(() => {
+          document.getElementById('successAlert').remove();
+        }, 3000);
+      </script>
+    <% } %>
+
+    <% if (error) { %>
+      <div id="errorAlert" class="fixed top-5 right-5 bg-red-600 text-white px-4 py-2 rounded shadow flex items-center justify-between gap-2 min-w-[250px]">
+        <span><%= error %></span>
+        <button onclick="document.getElementById('errorAlert').remove()" class="text-white font-bold">✖</button>
+      </div>
+    <% } %>
+
+    <h3 class="text-3xl mb-5 font-bold">Add Your Income</h3>
+
+    <form action="/income/add-income" method="post" class="space-y-6">
+      <div class="flex gap-4 flex-col md:flex-row">
+        <div class="w-full md:w-1/2">
+          <label for="name" class="block mb-1 text-bold text-gray-300">User Name</label>
+          <input id="name" name="name" type="text" placeholder="Name" required
+            class="w-full px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" />
+        </div>
+        <div class="w-full md:w-1/2">
+          <label for="amount" class="block mb-1 text-bold text-gray-300">Amount</label>
+          <input id="amount" name="amount" type="number" placeholder="Amount" required
+            class="w-full px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" />
+        </div>
+      </div>
+
+      <div class="flex gap-4 flex-col md:flex-row">
+        <div class="w-full md:w-1/2">
+          <label for="date" class="block mb-1 text-bold text-gray-300">Date of Income</label>
+          <input id="date" name="date" type="date" required
+            class="w-full px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" />
+        </div>
+        <div class="w-full md:w-1/2">
+          <label for="category" class="block mb-1 text-bold text-gray-300">Category</label>
+          <input id="category" name="category" type="text" placeholder="Category" required
+            class="w-full px-3 py-2 rounded-md outline-none bg-transparent border-2 border-zinc-800" />
+        </div>
+      </div>
+
+      <div class="flex gap-4">
+        <input type="submit" value="Add Income"
+          class="px-6 py-2 rounded-md bg-blue-500 hover:bg-blue-600 cursor-pointer" />
+        <button type="button" onclick="this.form.reset();"
+          class="px-6 py-2 rounded-md bg-gray-600 hover:bg-gray-700 cursor-pointer">Cancel</button>
+      </div>
+    </form>
+
+    <% if (incomes && incomes.length > 0) { %>
+      <div class="mt-10">
+        <h2 class="text-2xl font-bold mb-4">All Income Records</h2>
+        <table class="min-w-full bg-zinc-800 border border-zinc-700 rounded-lg text-center">
+          <thead>
+            <tr>
+              <th class="px-4 py-2 border-b">Sr No.</th>
+              <th class="px-4 py-2 border-b">User Name</th>
+              <th class="px-4 py-2 border-b">Amount</th>
+              <th class="px-4 py-2 border-b">Category</th>
+              <th class="px-4 py-2 border-b">Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% incomes.forEach((income, index) => { %>
+              <tr>
+                <td class="px-4 py-2 border-b"><%= index + 1 %></td>
+                <td class="px-4 py-2 border-b">
+                  <% if (user.role === 'admin') { %>
+                    <%= income.userId?.name || income.name %>
+                  <% } else { %>
+                    <%= income.name %>
+                  <% } %>
+                </td>
+                <td class="px-4 py-2 border-b"><%= income.amount %></td>
+                <td class="px-4 py-2 border-b"><%= income.category %></td>
+                <td class="px-4 py-2 border-b"><%= new Date(income.date).toLocaleDateString() %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <p class="mt-6 text-gray-400">No income records found.</p>
+    <% } %>
+
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+
+Worked Hours Worked Minus
+44          378
+conver min to hours 
+Workedmin/60 
+378/60  = 6 Horus 18 Minus
+total Hours
+Worked Hours + converted hors = total horus
+44 + 6 = 50
+
+Final hours = 50 18
+
+asing working hours 10 10
+
+remaing - 9 0
+
+adtional working hours 
+
